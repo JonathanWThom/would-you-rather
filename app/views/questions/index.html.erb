@@ -1,1 +1,15 @@
-hey hey
+<% @questions.each do |question| %>
+  <div class="row">
+    <h3><%= question.content %></h3>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <%= form_for [question, @response], remote: true do |f| %>
+        <%= f.label question.option_1 %>
+        <%= f.check_box :option_1 %>
+        <%= f.label question.option_2 %>
+        <%= f.check_box :option_1 %>
+        <%= f.submit 'Vote' %>
+      <% end %>
+  </div>
+<% end %>
