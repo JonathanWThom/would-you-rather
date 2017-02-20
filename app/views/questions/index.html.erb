@@ -18,6 +18,7 @@
         <%= question.option_1 %>: <%= question.responses.group(:option_1).count.values[1] %>
         <%= question.option_2 %>: <%= question.responses.group(:option_2).count.values[1] %>
       </div>
+      <div id="voted_<%= question.id %>"></div>
     </div>
 
     <div class="col-md-3">
