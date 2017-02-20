@@ -1,3 +1,4 @@
 // $('form').remove();
 $('#remove_question_<%= @question.id %>').show();
 $('.remove_checkbox_<%= @question.id %>').remove();
+$('#remove_question_<%= @question.id %>').html('<h3><%= @question.content %></h3><%= @question.option_1 %>: <%= @question.responses.group(:option_1).count.values[1] %><%= @question.option_2 %>: <%= @question.responses.group(:option_2).count.values[1] %>');
