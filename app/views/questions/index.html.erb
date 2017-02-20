@@ -6,9 +6,9 @@
     <div class="col-sm-6">
       <%= form_for [question, @response], remote: true do |f| %>
         <%= f.label question.option_1 %>
-        <%= f.check_box :option_1 %>
+        <%= f.check_box :option_1, {}, true, false %>
         <%= f.label question.option_2 %>
-        <%= f.check_box :option_1 %>
+        <%= f.check_box :option_2, {}, true, false  %>
         <%= f.submit 'Vote' %>
       <% end %>
   </div>

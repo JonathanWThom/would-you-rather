@@ -1,7 +1,8 @@
 class ResponsesController < ApplicationController
   def create
     @question = Question.find(params[:question_id])
-    @response = @question.responses.new(params[:question_response])
+    @response = @question.responses.new(option_1: params[:response][:option_1], option_2: params[:response][:option_2])
+    binding.pry
     if @response.save
       flash[:notice] = "You voted!"
       respond_to do |format|
@@ -13,4 +14,11 @@ class ResponsesController < ApplicationController
       redirect_to root_path
     end
   end
+
+private
+
+  def response_params
+    params.require(:response).permit(:option_1, :option_2)
+  end
+
 end
