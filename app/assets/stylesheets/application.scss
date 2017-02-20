@@ -16,3 +16,11 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+// .startHidden {
+//   display: none;
+// }
+
+div[id*="remove_question_"] {
+  display: none;
+}

@@ -1,6 +1,2 @@
-<% question.responses.each do |response| %>
-  <%= response %>
-<% end %>
-
-
-//add javascript to show on page
+// $('form').remove();
+$('#remove_question_<%= @question.id %>').show();
