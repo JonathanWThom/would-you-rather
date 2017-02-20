@@ -1,18 +1,37 @@
 <% @questions.each do |question| %>
 
   <div class="row">
-    <div id="remove_question_<%= question.id %>" class="startHidden">
-      <h3><%= question.content %></h3>
-      <%= question.option_1 %>: <%= question.responses.group(:option_1).count.values[1] %>
-      <%= question.option_2 %>: <%= question.responses.group(:option_2).count.values[1] %>
-    </div>
 
-      <%= form_for [question, @response], remote: true do |f| %>
+    <%= form_for [question, @response], remote: true do |f| %>
+    <div class="col-md-3">
+      <%= image_tag question.photo_1 %>
+      <br>
+      <div class="remove_checkbox_<%= question.id %>">
         <%= f.label question.option_1 %>
         <%= f.check_box :option_1, {}, true, false %>
+      </div>
+
+    </div>
+    <div class="col-md-3 ">
+      <div id="remove_question_<%= question.id %>" class="startHidden">
+        <h3><%= question.content %></h3>
+        <%= question.option_1 %>: <%= question.responses.group(:option_1).count.values[1] %>
+        <%= question.option_2 %>: <%= question.responses.group(:option_2).count.values[1] %>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <%= image_tag question.photo_2 %>
+      <br>
+      <div class="remove_checkbox_<%= question.id %>">
         <%= f.label question.option_2 %>
         <%= f.check_box :option_2, {}, true, false  %>
-        <%= f.submit 'Vote' %>
-      <% end %>
+      </div>
+    </div>
   </div>
+    <div class="row remove_checkbox_<%= question.id %>">
+      <%= f.submit 'Vote' %>
+      <% end %>
+    </div>
+
 <% end %>

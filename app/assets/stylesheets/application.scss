@@ -17,9 +17,9 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-// .startHidden {
-//   display: none;
-// }
+.startHidden {
+  text-align: center;
+}
 
 div[id*="remove_question_"] {
   display: none;
