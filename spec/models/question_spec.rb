@@ -5,4 +5,5 @@ describe Question do
   it { should validate_presence_of :option_1 }
   it { should validate_presence_of :option_2 }
   it { should have_many :responses }
+  it { should have_many(:users).through(:responses) }
 end
