@@ -1,5 +1,4 @@
 <% @questions.each do |question| %>
-
   <div class="row">
 
     <%= form_for [question, @response], remote: true do |f| %>
@@ -12,13 +11,14 @@
       </div>
 
     </div>
-    <div class="col-md-3 ">
+    <div class="col-md-3">
       <div id="remove_question_<%= question.id %>" class="startHidden">
         <h3><%= question.content %></h3>
         <%= question.option_1 %>: <%= question.responses.group(:option_1).count.values[1] %>
         <%= question.option_2 %>: <%= question.responses.group(:option_2).count.values[1] %>
       </div>
       <div id="voted_<%= question.id %>"></div>
+      <div id="user_comment_<%= question.id %>"></div>
     </div>
 
     <div class="col-md-3">
@@ -33,6 +33,10 @@
     <div class="row remove_checkbox_<%= question.id %>">
       <%= f.submit 'Vote' %>
       <% end %>
+    </div>
+
+    <div id="comment_<%= question.id %>">
+
     </div>
 
 <% end %>

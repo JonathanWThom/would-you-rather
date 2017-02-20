@@ -1,0 +1,5 @@
+<%= form_for [@question, @response], remote: true do |f| %>
+  <%= f.label 'EXPLAIN YOURSELF' %>
+  <%= f.text_field :comment %>
+  <%= f.submit %>
+<% end %>

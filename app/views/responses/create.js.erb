@@ -1,4 +1,4 @@
 // $('form').remove();
 $('#remove_question_<%= @question.id %>').show();
 $('.remove_checkbox_<%= @question.id %>').remove();
-$('#voted_<%= @question.id %>').append('<p>You voted for: <%= @question_response %>')
+$('#voted_<%= @question.id %>').append('<p>You voted for: <%= @question_response %>'+ '<br>' +'<div id="edit_button_<%= @question.id %>"><%= link_to "Edit", edit_question_response_path(@question, @response),:class => "btn btn-default", remote: true %></div>')

@@ -20,10 +20,33 @@ class ResponsesController < ApplicationController
     end
   end
 
+  def edit
+    @question = Question.find(params[:question_id])
+    @response = Response.find(params[:id])
+  end
+
+  def update
+    @question = Question.find(params[:question_id])
+    @response = Response.find(params[:id])
+    if @response.update(comment_params)
+      flash[:notice] = "You left a comment!"
+      respond_to do |format|
+        format.html { redirect_to root_path }
+        format.js
+      end
+    else
+      flash[:notice] = 'nope'
+      redirect_to root_path
+    end
+  end
+
 private
 
   def response_params
     params.require(:response).permit(:option_1, :option_2)
   end
 
+  def comment_params
+    params.require(:response).permit(:comment)
+  end
 end
