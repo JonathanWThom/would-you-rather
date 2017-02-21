@@ -15,7 +15,7 @@
         <% if current_user && !current_user.questions.include?(question) %>
           <div class="remove_checkbox_<%= question.id %>">
 
-            <%= f.check_box :option_1, {}, true, false %>
+            <%= f.check_box :option_1 %>
           </div>
         <% end %>
 
@@ -62,7 +62,7 @@
         <br>
         <% if current_user && !current_user.questions.include?(question) %>
           <div class="remove_checkbox_<%= question.id %>">
-            <%= f.check_box :option_2, {}, true, false  %>
+            <%= f.check_box :option_2 %>
           </div>
         <% end %>
       </div>

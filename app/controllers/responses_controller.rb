@@ -1,7 +1,8 @@
 class ResponsesController < ApplicationController
   def create
+
     @question = Question.find(params[:question_id])
-    @response = @question.responses.new(option_1: params[:response][:option_1], option_2: params[:response][:option_2], user_id: current_user.id)
+    @response = @question.responses.new(option_1: response_params[:option_1], option_2: response_params[:option_2], user_id: current_user.id)
     if @response.save
       flash[:notice] = "You voted!"
       @question_response = nil;
@@ -14,9 +15,6 @@ class ResponsesController < ApplicationController
         format.html { redirect_to root_path }
         format.js
       end
-    else
-      flash[:notice] = "nope"
-      redirect_to root_path
     end
   end
 
@@ -28,7 +26,7 @@ class ResponsesController < ApplicationController
   def update
     @question = Question.find(params[:question_id])
     @response = Response.find(params[:id])
-    if @response.update(comment_params)
+    if comment_params[:comment] != "" && @response.update(comment_params)
       flash[:notice] = "You left a comment!"
       respond_to do |format|
         format.html { redirect_to root_path }
