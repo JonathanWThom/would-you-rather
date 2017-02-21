@@ -8,89 +8,87 @@
 
     <div class="row">
       <%= form_for [question, @response], remote: true do |f| %>
-        <div class="col-md-3">
+        <div class="col-md-4">
           <%= image_tag question.photo_1 %>
           <%= f.label question.option_1 %>
           <br>
           <% if current_user && !current_user.questions.include?(question) %>
             <div class="remove_checkbox_<%= question.id %>">
-
               <%= f.check_box :option_1 %>
             </div>
           <% end %>
 
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
           <div id="mid_column_<%= question.id %>">
             <h3><%= question.content %></h3>
             <% if current_user && current_user.questions.include?(question) %>
-            <div id="remove_question_<%= question.id %>" class="alignCenter">
+              <div id="remove_question_<%= question.id %>" class="alignCenter">
 
-              <%= question.option_1 %>:
-              <% if question.responses.group(:option_1).count[true] %>
-                <%= question.responses.group(:option_1).count[true] %>
+                <%= question.option_1 %>:
+                <% if question.responses.group(:option_1).count[true] %>
+                  <%= question.responses.group(:option_1).count[true] %>
+                <% else %>
+                  0
+                <% end %>
+                <%= question.option_2 %>:
+                <% if question.responses.group(:option_2).count[true] %>
+                  <%= question.responses.group(:option_2).count[true] %>
+                <% else %>
+                  0
+                <% end %>
+
+              </div><!--end of remove question div-->
+
+              <% if question.responses.where(user_id: current_user.id)[0].option_1 %>
+                <p>You voted for <%= question.option_1 %></p>
+              <% elsif question.responses.where(user_id: current_user.id)[0].option_2 %>
+                <p>You voted for <%= question.option_2 %></p>
               <% else %>
-                0
+                <p>Vote!</p>
               <% end %>
-              <%= question.option_2 %>:
-              <% if question.responses.group(:option_2).count[true] %>
-                <%= question.responses.group(:option_2).count[true] %>
-              <% else %>
-                0
+              <% if current_user && !current_user.questions.include?(question) %>
+                <div id="edit_button_<%= question.id %>">
+                  <%= link_to "Comment", edit_question_response_path(question, question.responses.where(user_id: current_user.id).last),:class => "btn btn-default", remote: true %>
+                </div>
+                <% end %>
+              <% if question.responses.where(user_id: current_user.id) %>
+                <% question.responses.last.comment %>
               <% end %>
-            </div>
-            <% if question.responses.where(user_id: current_user.id)[0].option_1 %>
-              <p>You voted for <%= question.option_1 %></p>
-            <% elsif question.responses.where(user_id: current_user.id)[0].option_2 %>
-              <p>You voted for <%= question.option_2 %></p>
-            <% else %>
-              <p>Vote!</p>
-            <% end %>
-            <% if current_user && !current_user.questions.include?(question) %>
-              <div id="edit_button_<%= question.id %>">
-                <%= link_to "Comment", edit_question_response_path(question, question.responses.where(user_id: current_user.id).last),:class => "btn btn-default", remote: true %>
-              </div>
-              <% end %>
-            <% if question.responses.where(user_id: current_user.id) %>
-              <% question.responses.last.comment %>
-            <% end %>
-            <% end %>
-          </div>
+            <% end %><!--end of if current user conditional-->
+          </div><!--end of 'middle column'-->
 
-        <div id="responses_<%= question.id %>">
-          <% question.responses.where("comment is NOT NULL and comment != ''").order(created_at: :desc).limit(5).each do |response| %>
-            <% if response.comment %>
-            <p><%= response.comment %></p>
+          <div id="responses_<%= question.id %>">
+            <% question.responses.where("comment is NOT NULL and comment != ''").order(created_at: :desc).limit(5).each do |response| %>
+              <% if response.comment %>
+              <p><%= response.comment %></p>
+              <% end %>
             <% end %>
-          <% end %>
-        </div>
-      </div>
+          </div><!--ed of responses div-->
 
-        <div class="col-md-3">
+        </div><!--end of column-->
+
+        <div class="col-md-4">
           <%= image_tag question.photo_2 %>
           <%= f.label question.option_2 %>
           <br>
           <% if current_user && !current_user.questions.include?(question) %>
             <div class="remove_checkbox_<%= question.id %>">
               <%= f.check_box :option_2 %>
-            </div>
+            </div><!--end of remove checkbox div-->
           <% end %>
-        </div>
-      </div>
+        </div><!--end of column -->
+      </div><!--end of row-->
+
         <div class="row remove_checkbox_<%= question.id %>">
           <div class="col-md-4">
-          </div>
+          </div><!--end of empty column -->
           <% if current_user && !current_user.questions.include?(question) %>
             <div class="col-md-8">
               <%= f.submit 'Vote' %>
+            </div><!-- end of vote column -->
             <% end %>
           <% end %>
-        </div>
-      </div>
-
-      <div id="comment_<%= question.id %>">
-
-      </div>
-
-  <% end %>
-</div>
+        </div><!--end of row-->
+  <% end %><!--end of loop -->
+</div> <!--render question div>

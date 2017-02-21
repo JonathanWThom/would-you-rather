@@ -1,5 +1,5 @@
     <%= form_for [@question, @response], remote: true do |f| %>
-      <div class="col-md-3">
+      <div class="col-md-4">
         <%= image_tag @question.photo_1 %>
         <%= f.label @question.option_1 %>
         <br>
@@ -11,7 +11,7 @@
         <% end %>
 
       </div>
-      <div class="col-md-3">
+      <div class="col-md-4">
         <div id="mid_column_<%= @question.id %>">
           <h3><%= @question.content %></h3>
           <% if current_user && current_user.questions.include?(@question) %>
@@ -58,7 +58,7 @@
       </div>
     </div>
 
-      <div class="col-md-3">
+      <div class="col-md-4">
         <%= image_tag @question.photo_2 %>
         <%= f.label @question.option_2 %>
         <br>
