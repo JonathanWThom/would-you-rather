@@ -27,13 +27,14 @@
             <div id="remove_question_<%= question.id %>" class="alignCenter">
 
               <%= question.option_1 %>:
-              <% if  question.responses.group(:option_1).count[true] != 0 %>
+              <% if question.responses.group(:option_1).count[true] %>
                 <%= question.responses.group(:option_1).count[true] %>
               <% else %>
                 0
               <% end %>
-              <% if question.responses.group(:option_2).count[true] != 0 %>
-                <%= question.option_2 %>: <%= question.responses.group(:option_2).count[true] %>
+              <%= question.option_2 %>:
+              <% if question.responses.group(:option_2).count[true] %>
+                <%= question.responses.group(:option_2).count[true] %>
               <% else %>
                 0
               <% end %>

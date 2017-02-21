@@ -1,0 +1,12 @@
+<%= @question.option_1 %>:
+<% if @question.responses.group(:option_1).count[true] %>
+  <%= @question.responses.group(:option_1).count[true] %>
+<% else %>
+  0
+<% end %>
+<%= @question.option_2 %>:
+<% if @question.responses.group(:option_2).count[true] %>
+  <%= @question.responses.group(:option_2).count[true] %>
+<% else %>
+  0
+<% end %>

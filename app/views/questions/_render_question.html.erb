@@ -17,8 +17,19 @@
           <% if current_user && current_user.questions.include?(@question) %>
           <div id="remove_@question_<%= @question.id %>" class="alignCenter">
 
-            <%= @question.option_1 %>: <%= @question.responses.group(:option_1).count.values[1] %>
-            <%= @question.option_2 %>: <%= @question.responses.group(:option_2).count.values[1] %>
+            <%= @question.option_1 %>:
+            <% if @question.responses.group(:option_1).count[true] %>
+              <%= @question.responses.group(:option_1).count[true] %>
+            <% else %>
+              0
+            <% end %>
+
+            <%= @question.option_2 %>:
+            <% if @question.responses.group(:option_2).count[true] %>
+              <%= @question.responses.group(:option_2).count[true] %>
+            <% else %>
+              0
+            <% end %>
           </div>
           <% if @question.responses.where(user_id: current_user.id)[0].option_1 %>
             <p>You voted for <%= @question.option_1 %></p>
