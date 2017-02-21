@@ -12,35 +12,36 @@
 
       </div>
       <div class="col-md-3">
-        <% if current_user.questions.include?(question) %>
-        <div id="remove_question_<%= question.id %>" class="alignCenter">
-          <h3><%= question.content %></h3>
-          <%= question.option_1 %>: <%= question.responses.group(:option_1).count.values[1] %>
-          <%= question.option_2 %>: <%= question.responses.group(:option_2).count.values[1] %>
-        </div>
-        <% if question.responses.where(user_id: current_user.id)[0].option_1 %>
-          <p>You voted for <%= question.option_1 %></p>
-        <% elsif question.responses.where(user_id: current_user.id)[0].option_2 %>
-          <p>You voted for <%= question.option_2 %></p>
-        <% else %>
-          <p>Vote!</p>
-        <% end %>
-          <div id="edit_button_<%= question.id %>">
-            <%= link_to "Edit", edit_question_response_path(question, question.responses.where(user_id: current_user.id).last),:class => "btn btn-default", remote: true %>
+        <div id="mid_column_<%= question.id %>">
+          <% if current_user && current_user.questions.include?(question) %>
+          <div id="remove_question_<%= question.id %>" class="alignCenter">
+            <h3><%= question.content %></h3>
+            <%= question.option_1 %>: <%= question.responses.group(:option_1).count.values[1] %>
+            <%= question.option_2 %>: <%= question.responses.group(:option_2).count.values[1] %>
           </div>
-        <% if question.responses.where(user_id: current_user.id) %>
-          <% question.responses.last.comment %>
-        <% end %>
-        <!-- <div id="user_comment_<%= question.id %>">
-        </div> -->
-        <div id="responses_<%= question.id %>">
-          <% question.responses.where("comment is NOT NULL and comment != ''").order(created_at: :desc).limit(5).each do |response| %>
-            <% if response.comment %>
-            <p><%= response.comment %></p>
-            <% end %>
+          <% if question.responses.where(user_id: current_user.id)[0].option_1 %>
+            <p>You voted for <%= question.option_1 %></p>
+          <% elsif question.responses.where(user_id: current_user.id)[0].option_2 %>
+            <p>You voted for <%= question.option_2 %></p>
+          <% else %>
+            <p>Vote!</p>
+          <% end %>
+            <div id="edit_button_<%= question.id %>">
+              <%= link_to "Edit", edit_question_response_path(question, question.responses.where(user_id: current_user.id).last),:class => "btn btn-default", remote: true %>
+            </div>
+          <% if question.responses.where(user_id: current_user.id) %>
+            <% question.responses.last.comment %>
+          <% end %>
           <% end %>
         </div>
-      <% end %>
+
+      <div id="responses_<%= question.id %>">
+        <% question.responses.where("comment is NOT NULL and comment != ''").order(created_at: :desc).limit(5).each do |response| %>
+          <% if response.comment %>
+          <p><%= response.comment %></p>
+          <% end %>
+        <% end %>
+      </div>
     </div>
 
       <div class="col-md-3">

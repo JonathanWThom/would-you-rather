@@ -1,0 +1,20 @@
+<% if current_user && current_user.questions.include?(@question) %>
+<div id="remove_question_<%= @question.id %>" class="alignCenter">
+  <h3><%= @question.content %></h3>
+  <%= @question.option_1 %>: <%= @question.responses.group(:option_1).count.values[1] %>
+  <%= @question.option_2 %>: <%= @question.responses.group(:option_2).count.values[1] %>
+</div>
+<% if @question.responses.where(user_id: current_user.id)[0].option_1 %>
+  <p>You voted for <%= @question.option_1 %></p>
+<% elsif @question.responses.where(user_id: current_user.id)[0].option_2 %>
+  <p>You voted for <%= @question.option_2 %></p>
+<% else %>
+  <p>Vote!</p>
+<% end %>
+  <div id="edit_button_<%= @question.id %>">
+    <%= link_to "Edit", edit_question_response_path(@question, @question.responses.where(user_id: current_user.id).last),:class => "btn btn-default", remote: true %>
+  </div>
+<% if @question.responses.where(user_id: current_user.id) %>
+  <% @question.responses.last.comment %>
+<% end %>
+<% end %>
