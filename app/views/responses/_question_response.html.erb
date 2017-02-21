@@ -1,0 +1,5 @@
+<% question.responses.where("comment is NOT NULL and comment != ''").order(created_at: :asc).limit(5).each do |response| %>
+  <% if response.comment %>
+  <p><%= response.comment %></p>
+  <% end %>
+<% end %>

@@ -26,15 +26,20 @@
           <p>Vote!</p>
         <% end %>
           <div id="edit_button_<%= question.id %>">
-            <%= link_to "Edit", edit_question_response_path(question, question.responses.where(user_id: current_user.id)[0]),:class => "btn btn-default", remote: true %>
+            <%= link_to "Edit", edit_question_response_path(question, question.responses.where(user_id: current_user.id).last),:class => "btn btn-default", remote: true %>
           </div>
-        <div id="user_comment_<%= question.id %>">
-        </div>
-        <% question.responses.where("comment is NOT NULL and comment != ''").order(created_at: :asc).limit(5).each do |response| %>
-          <% if response.comment %>
-            <p><%= response.comment %></p>
-          <% end %>
+        <% if question.responses.where(user_id: current_user.id) %>
+          <% question.responses.last.comment %>
         <% end %>
+        <!-- <div id="user_comment_<%= question.id %>">
+        </div> -->
+        <div class="responses_<%= question.id %>">
+          <% question.responses.where("comment is NOT NULL and comment != ''").order(created_at: :desc).limit(5).each do |response| %>
+            <% if response.comment %>
+            <p><%= response.comment %></p>
+            <% end %>
+          <% end %>
+        </div>
       <% end %>
     </div>
 

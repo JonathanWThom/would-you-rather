@@ -1,2 +1,2 @@
 $('#comment_<%= @question.id %>').hide();
-$('#user_comment_<%= @question.id %>').append('<%= @response.comment %>');
+$('#responses_<%= @question.id %>').html('<%= j render("question_response")')
