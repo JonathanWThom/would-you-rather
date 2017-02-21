@@ -33,7 +33,7 @@
         <% end %>
         <!-- <div id="user_comment_<%= question.id %>">
         </div> -->
-        <div class="responses_<%= question.id %>">
+        <div id="responses_<%= question.id %>">
           <% question.responses.where("comment is NOT NULL and comment != ''").order(created_at: :desc).limit(5).each do |response| %>
             <% if response.comment %>
             <p><%= response.comment %></p>
