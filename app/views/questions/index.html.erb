@@ -1,13 +1,20 @@
+<%= link_to "Add a question", new_question_path, class: "questionBtn", remote: true%>
+
+<div class="question_form">
+
+</div>
+
 <% @questions.each do |question| %>
-  <div class="row">
+  <div class="row" id="renderQuestion">
 
     <%= form_for [question, @response], remote: true do |f| %>
       <div class="col-md-3">
         <%= image_tag question.photo_1 %>
+        <%= f.label question.option_1 %>
         <br>
         <% if current_user && !current_user.questions.include?(question) %>
           <div class="remove_checkbox_<%= question.id %>">
-            <%= f.label question.option_1 %>
+
             <%= f.check_box :option_1, {}, true, false %>
           </div>
         <% end %>
@@ -15,9 +22,10 @@
       </div>
       <div class="col-md-3">
         <div id="mid_column_<%= question.id %>">
+          <h3><%= question.content %></h3>
           <% if current_user && current_user.questions.include?(question) %>
           <div id="remove_question_<%= question.id %>" class="alignCenter">
-            <h3><%= question.content %></h3>
+
             <%= question.option_1 %>: <%= question.responses.group(:option_1).count.values[1] %>
             <%= question.option_2 %>: <%= question.responses.group(:option_2).count.values[1] %>
           </div>
@@ -50,10 +58,10 @@
 
       <div class="col-md-3">
         <%= image_tag question.photo_2 %>
+        <%= f.label question.option_2 %>
         <br>
         <% if current_user && !current_user.questions.include?(question) %>
           <div class="remove_checkbox_<%= question.id %>">
-            <%= f.label question.option_2 %>
             <%= f.check_box :option_2, {}, true, false  %>
           </div>
         <% end %>
