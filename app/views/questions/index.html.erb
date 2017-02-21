@@ -5,10 +5,12 @@
       <div class="col-md-3">
         <%= image_tag question.photo_1 %>
         <br>
-        <div class="remove_checkbox_<%= question.id %>">
-          <%= f.label question.option_1 %>
-          <%= f.check_box :option_1, {}, true, false %>
-        </div>
+        <% if current_user && !current_user.questions.include?(question) %>
+          <div class="remove_checkbox_<%= question.id %>">
+            <%= f.label question.option_1 %>
+            <%= f.check_box :option_1, {}, true, false %>
+          </div>
+        <% end %>
 
       </div>
       <div class="col-md-3">
@@ -26,9 +28,11 @@
           <% else %>
             <p>Vote!</p>
           <% end %>
+          <% if current_user && !current_user.questions.include?(question) %>
             <div id="edit_button_<%= question.id %>">
-              <%= link_to "Edit", edit_question_response_path(question, question.responses.where(user_id: current_user.id).last),:class => "btn btn-default", remote: true %>
+              <%= link_to "Comment", edit_question_response_path(question, question.responses.where(user_id: current_user.id).last),:class => "btn btn-default", remote: true %>
             </div>
+            <% end %>
           <% if question.responses.where(user_id: current_user.id) %>
             <% question.responses.last.comment %>
           <% end %>
@@ -47,18 +51,21 @@
       <div class="col-md-3">
         <%= image_tag question.photo_2 %>
         <br>
-        <div class="remove_checkbox_<%= question.id %>">
-          <%= f.label question.option_2 %>
-          <%= f.check_box :option_2, {}, true, false  %>
-        </div>
+        <% if current_user && !current_user.questions.include?(question) %>
+          <div class="remove_checkbox_<%= question.id %>">
+            <%= f.label question.option_2 %>
+            <%= f.check_box :option_2, {}, true, false  %>
+          </div>
+        <% end %>
       </div>
     </div>
       <div class="row remove_checkbox_<%= question.id %>">
         <div class="col-md-4">
-
         </div>
-        <div class="col-md-8">
-          <%= f.submit 'Vote' %>
+        <% if current_user && !current_user.questions.include?(question) %>
+          <div class="col-md-8">
+            <%= f.submit 'Vote' %>
+          <% end %>
         <% end %>
       </div>
     </div>
