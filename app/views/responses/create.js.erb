@@ -1,5 +1,5 @@
 // $('form').remove();
 $('#remove_question_<%= @question.id %>').show();
-$('.remove_checkbox_<%= @question.id %>').remove();
-$('#mid_column_<%= @question.id %>').html('<%= j render("middle_column") %> ');
+$('.remove_checkbox_<%= @question.id %>').html('')
+$('#mid_column_<%= @question.id %>').html('<%= j render("middle_column") %> ').after('<%= j render("graph") %>');
 $('#remove_question_<%= @question.id %>').html('<%= j render("vote_totals") %>');

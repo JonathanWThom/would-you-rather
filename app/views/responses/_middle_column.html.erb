@@ -1,5 +1,7 @@
 <% if current_user && current_user.questions.include?(@question) %>
   <div id="remove_question_<%= @question.id %>" class="alignCenter">
+    <div id="graph_<%= @question.id %>">
+    </div>
     <h3><%= @question.content %></h3>
     <%= @question.option_1 %>: <%= @question.responses.group(:option_1).count[true] %>
     <%= @question.option_2 %>: <%= @question.responses.group(:option_2).count[true] %>
