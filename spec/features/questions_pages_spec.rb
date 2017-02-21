@@ -11,7 +11,7 @@ describe 'questions path' do
     fill_in 'question_photo_2', :with => 'https://image.com'
     click_on "Create Question"
     # AJAX works but not rendering correctly for spec
-    expect(page).to have_content('Add a question')
+    expect(page).to have_content('Does this work?')
   end
 
   it 'will fail to add a new question', js: true do
