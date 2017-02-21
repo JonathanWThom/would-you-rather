@@ -24,7 +24,8 @@
             <h3><%= question.content %></h3>
             <% if current_user && current_user.questions.include?(question) %>
               <div id="remove_question_<%= question.id %>" class="alignCenter">
-                <%= pie_chart question.responses.group(:option_1).count %>
+                <%= pie_chart({question.option_1 => question.responses.group(:option_1).count[true], question.option_2 => question.responses.group(:option_2).count[true]}) %>
+
                 <%= question.option_1 %>:
                 <% if question.responses.group(:option_1).count[true] %>
                   <%= question.responses.group(:option_1).count[true] %>
